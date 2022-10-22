@@ -3,7 +3,7 @@ import Logo from  "../assets/images/TICKERS1X1-01.png";
 const Index = () => {
     return ( 
         <div className="flex items-center">
-            <div className="w-1/2 pl-10 ">
+            <div className="w-1/2 pl-20 ">
                 <div className="text-[4rem]">
                     <h1>Descrubre Las</h1>
                     <h1>Las Mejores</h1>

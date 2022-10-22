@@ -5,7 +5,7 @@ import NftWhite1 from "../assets/images/TICKERS1X1-01-WHITE.png";
 import NftWhite2 from "../assets/images/TICKERS1X1-02-WHITE.png";
 const Welcome = () => {
     return ( 
-        <div id="About" className="xl:mx-principal nanomax:mx-0 lg:mx-principal2 lgmax:px-5  flex lgmax:flex-col mt-16 mb-12 bg-blackcontainer rounded-lg p-4">
+        <div id="About" className="xl:mx-principal nanomax:mx-0 lg:mx-principal2 lgmax:px-5  flex lgmax:flex-col mb-12 bg-blackcontainer rounded-lg p-4">
             <div data-aos="fade-down" className="w-1/2 lgmax:w-full h-auto lgmax:px-3 lgmax:pt-5 px-12 flex flex-col justify-center items-center">
                 <h1 className="font-semibold text-4xl leading-normal text-white">
                 Welcome to the Crypto Rewards
