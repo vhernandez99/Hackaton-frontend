@@ -5,6 +5,7 @@ import Index from "../components/Index";
 import Info from "../components/Info";
 import Nav from "../components/Nav";
 import Team from "../components/Team";
+import UserGrid from "../components/UserGrid";
 import Welcome from "../components/Welcome";
 
 const index = () => {
@@ -13,6 +14,7 @@ const index = () => {
     <Nav/>
     <Index/>
     <Welcome/>
+    <UserGrid/>
     <Empresas/>
     <Banner/>
     <Info/>
