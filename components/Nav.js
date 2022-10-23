@@ -28,7 +28,7 @@ const Nav = () => {
                     </nav>
                 </header>
                 <div className="w-[10%] lgmax:w-[30%]">
-                    <p className="bg-blue-600 text-center text-white py-3 rounded-full lgmax:text-xs">NFT Del Dia</p>
+                    <p className="bg-blue-600 text-center text-white py-3 rounded-full lgmax:text-xs">Conect To Metamask</p>
                 </div>
             </div>
             <div className={

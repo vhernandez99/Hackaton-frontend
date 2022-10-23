@@ -51,7 +51,7 @@ const Team = () => {
                                 <div className='w-1/2 text-xl lgmax:w-full lgmax:flex lgmax:flex-col lgmax:items-justify-center'>
                                     <h2>{`${member.title} ${member.name}`}</h2>
                                     <p> {member.role} </p>
-                                    <Image alt={member.name} className='bg-blue-600 rounded-lg' width={150} height={150} src={member.image}/>
+                                    <Image alt={member.name} objectFit="cover" className='bg-blue-600 rounded-lg' width={150} height={150} src={member.image}/>
                                 </div>
                                 <div className='w-1/2 space-y-8 text-xl lgmax:w-full lgmax:space-y-4 lgmax:text-sm lgmax:mt-2'>
                                     <p className=''> <span><a href=''>@tupapacrosfit</a></span> Nearly two decades in Business </p>
