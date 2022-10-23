@@ -6,9 +6,10 @@ export const Header = () => {
             <div>
                 <span>Crypto Rewards</span>
             </div>
-            <div className='flex justify-evenly w-96 items-center'>
-                <Button text='Crear nuevo' primary />
-                <Button text='Registrar uso' />
+            <div className='flex justify-evenly w-[30rem] items-center'>
+                <Button text='Crear nuevo'  primary/>
+                <Button text='Registrar uso' primary/>
+                <Button text='Intercambios' primary />
                 <Button text='Salir' primary />
             </div>
         </div>
