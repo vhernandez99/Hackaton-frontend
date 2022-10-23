@@ -49,34 +49,42 @@ const UploadNft = () => {
     }
   };
   const approveTokens = async () => {
-    const { BBVATokenAbi } = abi;
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const amount = ethers.utils.parseEther(tokensToApprove);
-    const signer = provider.getSigner();
-    const BBVATokenContract = new ethers.Contract(
-      BBVATokenAddress,
-      BBVATokenAbi,
-      signer
-    );
-    await BBVATokenContract.approve(BBVAAddress, amount);
-    getAllowedTokensToSpend
+    try {
+      const { BBVATokenAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const amount = ethers.utils.parseEther(tokensToApprove);
+      const signer = provider.getSigner();
+      const BBVATokenContract = new ethers.Contract(
+        BBVATokenAddress,
+        BBVATokenAbi,
+        signer
+      );
+      await BBVATokenContract.approve(BBVAAddress, amount);
+      getAllowedTokensToSpend;
+    } catch (error) {
+      console.log(error);
+    }
   };
   const getAllowedTokensToSpend = async () => {
-    const { BBVATokenAbi } = abi;
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const signerAddress = await signer.getAddress();
-    const BBVATokenContract = new ethers.Contract(
-      BBVATokenAddress,
-      BBVATokenAbi,
-      signer
-    );
-    const allowedTokens = await BBVATokenContract.allowance(
-      signerAddress,
-      BBVAAddress
-    );
-    const tokens = ethers.utils.formatEther(allowedTokens);
-    setAllowedTokensToSpend(Math.round(tokens));
+    try {
+      const { BBVATokenAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const signerAddress = await signer.getAddress();
+      const BBVATokenContract = new ethers.Contract(
+        BBVATokenAddress,
+        BBVATokenAbi,
+        signer
+      );
+      const allowedTokens = await BBVATokenContract.allowance(
+        signerAddress,
+        BBVAAddress
+      );
+      const tokens = ethers.utils.formatEther(allowedTokens);
+      setAllowedTokensToSpend(Math.round(tokens));
+    } catch (error) {
+      console.log(error)
+    }
   };
   useEffect(() => {
     getAllowedTokensToSpend();
@@ -114,10 +122,7 @@ const UploadNft = () => {
         <p>Recompensas</p>
       </div>
       <div className="flex flex-col items-center">
-        <div>
-         
-          Lista de recompensas
-        </div>
+        <div>Lista de recompensas</div>
       </div>
       <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Aprobar el costo de la recompensa antes de comprar</p>
@@ -185,12 +190,6 @@ const UploadNft = () => {
             </div>
           </div>
           <div className="space-y-2 justify-center w-full">
-            <Button
-              onClick={approveTokens}
-              className="bg-blue-400 rounded-lg p-2 px-8 text-center w-full"
-            >
-              Aprobar costo
-            </Button>
             <Button
               onClick={buyReward}
               className="bg-blue-400 rounded-lg p-2 px-8 text-center w-full"

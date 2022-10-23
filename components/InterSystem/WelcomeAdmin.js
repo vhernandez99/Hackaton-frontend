@@ -11,15 +11,12 @@ import {
 } from "../../utils/ContractAddress";
 import { useEffect, useState } from "react";
 
-const UploadNft = () => {
+const Admin = () => {
   const [expiration, setExpiration] = useState();
   const [cost, setCost] = useState();
-  const [toAddress, setToAddress] = useState();
-  const [rewardId, setRewardId] = useState();
-  const [tokensToApprove, setTokensToApprove] = useState();
-  const [allowedTokensToSpend, setAllowedTokensToSpend] = useState();
   const [toAddress2, setToAddress2] = useState();
   const [amountOfPoints, setAmountOfPoints] = useState();
+  const [newAdminAddress,setNewAdminAddress]=useState()
   const addReward = async (_cost, _metadataUrl) => {
     try {
       const secondsInAday = 86400;
@@ -50,58 +47,13 @@ const UploadNft = () => {
       console.log(error);
     }
   };
-  const buyReward = async (_account, _rewardId) => {
-    try {
-      const { BBVAAbi } = abi;
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const amount = ethers.utils.parseEther("1");
-      const signer = provider.getSigner();
-      const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
-      BBVAContract.buyReward(toAddress, rewardId, amount);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const approveTokens = async () => {
-    const { BBVATokenAbi } = abi;
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const amount = ethers.utils.parseEther(tokensToApprove);
-    const signer = provider.getSigner();
-    const BBVATokenContract = new ethers.Contract(
-      BBVATokenAddress,
-      BBVATokenAbi,
-      signer
-    );
-    await BBVATokenContract.approve(BBVAAddress, amount);
-    getAllowedTokensToSpend;
-  };
-  const getAllowedTokensToSpend = async () => {
-    const { BBVATokenAbi } = abi;
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const signerAddress = await signer.getAddress();
-    const BBVATokenContract = new ethers.Contract(
-      BBVATokenAddress,
-      BBVATokenAbi,
-      signer
-    );
-    const allowedTokens = await BBVATokenContract.allowance(
-      signerAddress,
-      BBVAAddress
-    );
-    const tokens = ethers.utils.formatEther(allowedTokens);
-    setAllowedTokensToSpend(Math.round(tokens));
-  };
-  useEffect(() => {
-    getAllowedTokensToSpend();
-  }, []);
-  const deleteReward = async (_rewardId) => {
+  const addAdmin = async (_address) => {
     try {
       const { BBVAAbi } = abi;
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
-      BBVAContract.deleteReward(1);
+      await BBVAContract.addAdmin(newAdminAddress);
     } catch (error) {
       console.log(error);
     }
@@ -122,6 +74,33 @@ const UploadNft = () => {
         </div>
         <div className="w-1/2 flex flex-col items-center justify-center space-y-6">
           {/* <p className='bg-blue-600 text-white py-2 px-16 rounded-lg'>Crear recompensa</p> */}
+        </div>
+      </div>
+      <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
+        <p>Agregar admin (Solo admins)</p>
+      </div>
+      <div className="flex flex-col items-center">
+        <div>
+          <div className="flex space-x-4 mb-4">
+            <div className="space-y-4 w-full">
+              <div>
+                <p>Cuenta:</p>
+                <input
+                  onChange={(e) => setNewAdminAddress(e.target.value)}
+                  placeholder="address"
+                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2 w-full"
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center w-full">
+            <Button
+              className="bg-blue-400 rounded-lg p-2 px-8 text-center w-full"
+              onClick={addAdmin}
+            >
+              Enviar
+            </Button>
+          </div>
         </div>
       </div>
       <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
@@ -257,4 +236,4 @@ const UploadNft = () => {
   );
 };
 
-export default UploadNft;
+export default Admin;
