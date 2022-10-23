@@ -5,7 +5,7 @@ import { useState } from "react";
 import Logo from "../assets/images/logo.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
-const Nav = () => {
+const Nav = (props) => {
   const router = useRouter();
   const [Swipe, SetSwipe] = useState(false);
 

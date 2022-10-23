@@ -147,7 +147,6 @@ export default function test() {
   };
   return (
     <>
-      <Nav />
       <Head>
         <title>My DAPP</title>
       </Head>
