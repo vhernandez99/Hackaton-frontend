@@ -1,4 +1,4 @@
-import { Header, WelcomeAdmin } from '../components/InterSystem/'
+import { Header, WelcomeAdmin } from '../components/InterSystem'
 import { Nav } from '../components'
 import Footer from '../components/InterSystem/Footer'
 

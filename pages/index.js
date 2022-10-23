@@ -1,4 +1,4 @@
-import { Banner, Empresas, Footer, Info, Main, Nav, Team, UserGrid, Welcome } from '../components/'
+import { Banner, Empresas, Footer, Info, Main, Nav, Team, UserGrid, Welcome } from '../components'
 const index = () => {
     return (
         <>
