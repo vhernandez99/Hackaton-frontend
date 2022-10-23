@@ -1,11 +1,13 @@
-import WelcomeAdmin from "../components/InterSystem/WelcomeAdmin";
+import { Header, WelcomeAdmin } from '../components/InterSystem/'
+import { Nav } from '../components'
 
 const admin = () => {
-    return ( 
-        <>
-        <WelcomeAdmin/>
-        </>
-     );
+    return (
+        <div className='bg-black text-white'>
+            <Header />
+            <WelcomeAdmin />
+        </div>
+    )
 }
- 
-export default admin;
+
+export default admin

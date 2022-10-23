@@ -1,27 +1,19 @@
-import Banner from "../components/Banner";
-import Empresas from "../components/Empresas";
-import Footer from "../components/Footer";
-import Index from "../components/Index";
-import Info from "../components/Info";
-import Nav from "../components/Nav";
-import Team from "../components/Team";
-import UserGrid from "../components/UserGrid";
-import Welcome from "../components/Welcome";
+import { Banner, Empresas, Footer, Info, Main, Nav, Team, UserGrid, Welcome } from '../components/'
 
 const index = () => {
-  return ( 
-    <>
-    <Nav/>
-    <Index/>
-    <Welcome/>
-    <UserGrid/>
-    <Empresas/>
-    <Banner/>
-    <Info/>
-    <Team/>
-    <Footer/>
-    </>
-   );
+    return (
+        <>
+            <Nav />
+            <Main />
+            <Welcome />
+            <UserGrid />
+            <Empresas />
+            <Banner />
+            <Info />
+            <Team />
+            <Footer />
+        </>
+    )
 }
- 
-export default index;
+
+export default index
