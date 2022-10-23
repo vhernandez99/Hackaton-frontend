@@ -1,4 +1,4 @@
-import { WelcomeAdmin } from '../components/InterSystem/WelcomeAdmin'
+import WelcomeAdmin from '../components/InterSystem/WelcomeAdmin'
 import Footer from '../components/InterSystem/Footer'
 
 const admin = () => {
