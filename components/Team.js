@@ -2,23 +2,41 @@ import {useState, useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faGlobe} from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
+import memberImage from "../assets/images/pancho.png";
+import memberImage2 from "../assets/images/rafa.png";
+import memberImage3 from "../assets/images/victor.jpg";
+import memberImage4 from "../assets/images/litzi.jpg";
 
-const getMembers = async () => {
-    const res = await fetch("http://localhost:3000/api/members")
-    return await res.json()
-}
+
 
 const Team = () => {
 
-    const [members, setMembers] = useState(null);
-    useEffect(() => {
-
-        getMembers().then((data) => {
-            setMembers(data)
-        })
-
-    }, [])
-
+    const members = [
+        {
+          title: 'Ing.',
+          name: 'Víctor Hernández Aguilera',
+          role: 'Blockchain Developer',
+          image: memberImage3,
+        },
+        {
+          title: 'Ing.',
+          name: 'Litzi Yarely Sánchez Enríquez',
+          role: 'UI/UX Designer',
+          image: memberImage4,
+        },
+        {
+          title: 'Ing.',
+          name: 'Francisco Orta Ramírez',
+          role: 'Front-End Developer',
+          image: memberImage,
+        },
+        {
+          title: 'TSU.',
+          name: 'Rafael Sánchez Olguín',
+          role: 'Front-End Developer',
+          image: memberImage2,
+        },
+      ]
     return ( 
         <>
             <div className='mx-[20%] lgmax:mx-[5%]'>
