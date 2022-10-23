@@ -5,7 +5,7 @@ import Head from "next/head";
 import { Box, Heading, Text, VStack, Button, Input } from "@chakra-ui/react";
 import abi from "../abi/contractsAbi";
 import Nav from "../components/Nav";
-export default function test() {
+export default function Test() {
   const [balance, setBalance] = useState();
   const [currentAccount, setCurrentAccount] = useState();
   const [chainId, setChainId] = useState();
@@ -101,7 +101,11 @@ export default function test() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
-      BBVAContract.addReward(expirationInSeconds, amount, "ipfs://");
+      BBVAContract.addReward(
+        expirationInSeconds,
+        amount,
+        "ipfs://QmcNYbgm5tDRMjkWyzoXFBxdnLGArocy6DbLWHuqNAxXLz/1.json"
+      );
     } catch (error) {
       console.log(error);
     }
@@ -138,8 +142,27 @@ export default function test() {
       const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
       BBVAContract.buyReward(
         "0x3A1e43425cD5eE5B07F32899B0d9F69ce43182b1",
-        2,
+        5,
         amount
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const transferReward = async (_from, _to, _rewardId) => {
+    try {
+      const { BBVANFTRewardsAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const BBVANFTRewardsContract = new ethers.Contract(
+        BBVANFTRewards,
+        BBVANFTRewardsAbi,
+        signer
+      );
+      BBVANFTRewardsContract.transferFrom(
+        "0x3A1e43425cD5eE5B07F32899B0d9F69ce43182b1",
+        "0x9e31BC05aC358e5Ae4317400871BB2B20cf91997",
+        4
       );
     } catch (error) {
       console.log(error);
@@ -195,6 +218,9 @@ export default function test() {
           </Button>
           <Button type="button" w="100%" onClick={buyReward}>
             Buy reward
+          </Button>
+          <Button type="button" w="100%" onClick={transferReward}>
+            TransferReward
           </Button>
         </Box>
         )

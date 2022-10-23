@@ -1,14 +1,56 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "../assets/images/logo.png";
 import Link from "next/link";
+import { ethers } from "ethers";
 import { useRouter } from "next/router";
+import { Button, Text } from "@chakra-ui/react";
+import {
+  BBVAAddress,
+  BBVATokenAddress,
+  BBVANFTRewards,
+} from "../utils/ContractAddress";
+import abi from "../abi/contractsAbi";
 const Nav = (props) => {
   const router = useRouter();
   const [Swipe, SetSwipe] = useState(false);
-
+  const [currentAccount, setCurrentAccount] = useState();
+  const [balance, setBalance] = useState();
+  useEffect(() => {
+    connectToMetamask();
+  }, []);
+  const connectToMetamask = () => {
+    //client side code
+    if (!window.ethereum) {
+      alert("please install MetaMask");
+      return;
+    }
+    //we can do it using ethers.js
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // MetaMask requires requesting permission to connect users accounts
+    provider
+      .send("eth_requestAccounts", [])
+      .then((accounts) => {
+        if (accounts.length > 0) setCurrentAccount(accounts[0]);
+      })
+      .catch((e) => console.log(e));
+  };
+  const getTokensBalance = async () => {
+    const { BBVATokenAbi } = abi;
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const BBVAToken = new ethers.Contract(
+      BBVATokenAddress,
+      BBVATokenAbi,
+      signer
+    );
+    const balance = await BBVAToken.balanceOf(currentAccount);
+    const tokens = ethers.utils.formatEther(balance.toString());
+    setBalance(Math.round(tokens));
+    //called only once
+  };
   return (
     <div>
       <div className="bg-[#222] z-50 flex items-center lgmax:justify-between px-[5%]">
@@ -45,10 +87,30 @@ const Nav = (props) => {
             </ul>
           </nav>
         </header>
-        <div className="w-[10%] lgmax:w-[30%]">
-          <p className="bg-blue-600 text-center text-white py-3 rounded-full lgmax:text-xs">
-            Conect To Metamask
-          </p>
+        <div className="w-[40%] lgmax:w-[40%] flex gap-x-2">
+          {currentAccount ? (
+            <>
+              {balance ? (
+                <Text onClick={getTokensBalance} className="bg-blue-600 cursor-pointer text-center text-white p-2 rounded-lg lgmax:text-xs items-center flex">
+                  {`Puntos: ${balance}`}
+                </Text>
+              ) : (
+                <Button onClick={getTokensBalance} className="bg-blue-600 text-center text-white p-2 rounded-lg lgmax:text-xs items-center flex">
+                  Obtener balances
+                </Button>
+              )}
+              <Button className="bg-blue-600 text-center text-white p-4 rounded-lg lgmax:text-xs">
+                {currentAccount}
+              </Button>
+            </>
+          ) : (
+            <Button
+              className="bg-blue-600 text-center text-white p-4 rounded-lg lgmax:text-xs"
+              onClick={connectToMetamask}
+            >
+              Conect To Metamask
+            </Button>
+          )}
         </div>
       </div>
       <div
