@@ -5,7 +5,7 @@ import Image from "next/image";
 const Empresas = () => {
     return ( 
         <div className="mb-12">
-            <div className="text-center mb-8 text-4xl">
+            <div className="text-center mb-8 text-4xl lgmax:text-xl">
                 <h1>Empresas Involucradas</h1>
             </div>
             <div className="mx-[20%] flex space-x-2">

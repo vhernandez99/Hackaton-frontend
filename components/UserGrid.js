@@ -6,9 +6,9 @@ import NftWhite2 from "../assets/images/TICKERS1X1-02-WHITE.png";
 
 const UserGrid = () => {
     return ( 
-        <div className="mx-[20%] mb-16">
+        <div className="mx-[20%] mb-16 lgmax:mx-[5%]">
             <div className="flex flex-col items-center space-y-2 mb-16">
-                <h1 className="text-5xl font-extralight	">Bienvenido@ user_name</h1>
+                <h1 className="text-5xl font-extralight	lgmax:text-2xl">Bienvenido@ user_name</h1>
                 <p>DD/MM/AA</p>
             </div>
             <div className="text-center text-blue-600 border border-blue-600 py-3 rounded-lg">
@@ -17,7 +17,7 @@ const UserGrid = () => {
             <div className="text-center mt-8 mb-2">
                 <h3>Libres</h3>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 lgmax:grid-cols-1">
                 <div className="border border-black p-4 rounded-lg">
                     <div>
                         <Image src={NftWhite1}/>
@@ -49,7 +49,7 @@ const UserGrid = () => {
             <div className="text-center mt-8 mb-2">
                 <h3>Canjeados</h3>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 lgmax:grid-cols-1">
                 <div className="border border-black p-4 rounded-lg">
                     <div>
                         <Image src={NftWhite2}/>

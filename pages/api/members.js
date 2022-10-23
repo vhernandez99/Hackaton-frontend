@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import memberImage from '../../assets/images/11.png'
-import rafaImage from '../../assets/images/rafa.png'
-import panchoImage from '../../assets/images/pancho.png'
+import memberImage from '../../assets/images/pancho.png'
+// import rafaImage from "../../assets/images/rafa.png";
+
 const members = [
     {
         title: 'Ing.',
