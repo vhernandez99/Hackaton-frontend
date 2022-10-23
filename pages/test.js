@@ -168,6 +168,20 @@ export default function Test() {
       console.log(error);
     }
   };
+  const getAllowedTokensToSpend = async () => {
+    const { BBVATokenAbi } = abi;
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const amount = ethers.utils.parseEther("1");
+    const signer = provider.getSigner();
+    const signerAddress = await signer.getAddress();
+    const BBVATokenContract = new ethers.Contract(
+      BBVATokenAddress,
+      BBVATokenAbi,
+      signer
+    );
+    const allowedTokens =await BBVATokenContract.allowance(signerAddress, BBVAAddress);
+    console.log(allowedTokens)
+  };
   return (
     <>
       <Head>

@@ -1,4 +1,3 @@
-import { Header } from "../components/InterSystem";
 import Footer from "../components/InterSystem/Footer";
 import UploadNft from "../components/InterSystem/UploadNft";
 

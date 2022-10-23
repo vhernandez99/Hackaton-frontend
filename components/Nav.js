@@ -78,8 +78,8 @@ const Nav = (props) => {
               <Link href="/admin" passHref>
                 <a>Admin</a>
               </Link>
-              <Link href="/intercambios" passHref>
-                <a>Intercambios</a>
+              <Link href="/transferencias" passHref>
+                <a>transferencias</a>
               </Link>
               <Link href="/test" passHref>
                 <a>test</a>
@@ -131,8 +131,8 @@ const Nav = (props) => {
             <Link href="/admin" passHref>
               <a>Admin</a>
             </Link>
-            <Link href="/intercambios" passHref>
-              <a>Intercambios</a>
+            <Link href="/transferencias" passHref>
+              <a>transferencias</a>
             </Link>
             <Link href="/test" passHref>
               <a>test</a>
