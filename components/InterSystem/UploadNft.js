@@ -18,24 +18,7 @@ const UploadNft = () => {
   const [rewardId, setRewardId] = useState();
   const [tokensToApprove, setTokensToApprove] = useState();
   const [allowedTokensToSpend, setAllowedTokensToSpend] = useState();
-  const addReward = async (_cost, _metadataUrl) => {
-    try {
-      const secondsInAday = 86400;
-      const expirationInSeconds = secondsInAday * expiration;
-      const amount = ethers.utils.parseEther(cost);
-      const { BBVAAbi } = abi;
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
-      BBVAContract.addReward(
-        expirationInSeconds,
-        amount,
-        "ipfs://QmcNYbgm5tDRMjkWyzoXFBxdnLGArocy6DbLWHuqNAxXLz/1.json"
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [allRewards, setAllRewards] = useState();
   const buyReward = async (_account, _rewardId) => {
     try {
       const { BBVAAbi } = abi;
@@ -83,11 +66,25 @@ const UploadNft = () => {
       const tokens = ethers.utils.formatEther(allowedTokens);
       setAllowedTokensToSpend(Math.round(tokens));
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    }
+  };
+  const getAllRewards = async () => {
+    try {
+      const { BBVAAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
+      const rewards = await BBVAContract.returnAllRewards();
+      setAllRewards(rewards);
+      console.log(rewards);
+    } catch (error) {
+      console.log(error);
     }
   };
   useEffect(() => {
     getAllowedTokensToSpend();
+    getAllRewards();
   }, []);
   const deleteReward = async (_rewardId) => {
     try {
@@ -121,8 +118,26 @@ const UploadNft = () => {
       <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Recompensas</p>
       </div>
-      <div className="flex flex-col items-center">
-        <div>Lista de recompensas</div>
+      <div className="flex justify-center items-center">
+        {allRewards?.map((item, _index) => {
+          return (
+            <div key={_index} className="">
+              <div className="bg-white w-[190px] h-[200px] border-2 border-blue-400 rounded-lg">
+                <Image
+                  src="https://gateway.pinata.cloud/ipfs/QmXmqHnMmhLUcPKgepVRmBtoj3d5AuuBWwR8x2nCot3uPQ"
+                  width={190}
+                  height={200}
+                />
+              </div>
+              <div>
+                <h1>{`Id: ${item[0]?.toString()}`}</h1>
+                <h1>
+                  {`Cost: ${Math.round(ethers.utils.formatEther(item[2]?.toString()))}`}
+                </h1>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Aprobar el costo de la recompensa antes de comprar</p>

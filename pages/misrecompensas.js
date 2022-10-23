@@ -18,7 +18,16 @@ const MisRecompensas = () => {
   const [rewardId, setRewardId] = useState();
   const [tokensToApprove, setTokensToApprove] = useState();
   const [allowedTokensToSpend, setAllowedTokensToSpend] = useState();
-
+  const getMyRewards = async () => {
+    const response = await fetch(
+      "https://eth-goerli.g.alchemy.com/nft/v2/DaVXPztsrU8prbCt56HOAeQWsELaL7_P/getNFTsForCollection?contractAddress=0xb26ffe7818018f68B516558d500901A74DE152a0&withMetadata=false"
+    );
+      const rewards =await response.json()
+      console.log(rewards)
+  };
+  useEffect(() => {
+    getMyRewards()
+  }, []);
   return (
     <div className="bg-black text-white h-[700px]">
       <div className="mx-[20%] h-full">
@@ -43,7 +52,6 @@ const MisRecompensas = () => {
         <div className="flex flex-col items-center">
           <div>Lista de mis recompensas</div>
         </div>
-   
 
         {/* <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Recompensas</p>
