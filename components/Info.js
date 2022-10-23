@@ -14,7 +14,7 @@ const Info = () => {
                         <p className="text-3xl text-center">Cuales Son Los Beneficios?</p>
                     </div>
                     <div className="h-[5%]">
-                        <a className="bg-blue-600 text-white rounded-full py-2 px-8">Leer Mas...</a>
+                        <a className="bg-blue-600 text-white rounded-lg py-2 px-8">Leer Mas...</a>
                     </div>
                 </div>
                 <div className="w-1/3 px-4 border border-blue-600 flex flex-col justify-center items-center rounded-lg lgmax:w-full lgmax:h-[35vh]">
@@ -22,7 +22,7 @@ const Info = () => {
                         <p className="text-3xl text-center">Cuales Son Los Beneficios?</p>
                     </div>
                     <div className="h-[5%]">
-                        <a className="bg-blue-600 text-white rounded-full py-2 px-8">Leer Mas...</a>
+                        <a className="bg-blue-600 text-white rounded-lg py-2 px-8">Leer Mas...</a>
                     </div>
                 </div>
                 <div className="w-1/3 px-4 border border-blue-600 flex flex-col justify-center items-center rounded-lg lgmax:w-full lgmax:h-[35vh]">
@@ -30,7 +30,7 @@ const Info = () => {
                         <p className="text-3xl text-center">Cuales Son Los Beneficios?</p>
                     </div>
                     <div className="h-[5%]">
-                        <a className="bg-blue-600 text-white rounded-full py-2 px-8">Leer Mas...</a>
+                        <a className="bg-blue-600 text-white rounded-lg py-2 px-8">Leer Mas...</a>
                     </div>
                 </div>
             </div>

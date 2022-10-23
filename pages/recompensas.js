@@ -5,7 +5,6 @@ import UploadNft from "../components/InterSystem/UploadNft";
 const upload = () => {
     return ( 
         <div className='bg-black text-white'>
-        <Header/>
         <UploadNft/>
         <Footer/>
         </div>

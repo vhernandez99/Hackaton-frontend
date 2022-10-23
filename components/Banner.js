@@ -9,7 +9,7 @@ const Banner = () => {
                     <p> Holders will be rewarded with constant airdrops, contests, lotteries, and whitelists to future projects.</p>
                 </div>
                 <div className="w-1/3 lgmax:w-full flex justify-center items-center">
-                    <a className="bg-[#222223] p-5 rounded-full">Buy on Open Sea</a>
+                    <a className="bg-[#222223] p-5 rounded-lg">Buy on Open Sea</a>
                 </div>
             </div>
         </div>

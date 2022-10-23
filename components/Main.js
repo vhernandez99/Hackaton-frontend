@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Logo from '../assets/images/TICKERS1X1-01.png'
-const Index = () => {
+const Main = () => {
     return (
         <div className='flex items-center'>
             <div className='w-1/2 pl-20 '>
@@ -27,4 +27,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default Main
