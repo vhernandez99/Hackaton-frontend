@@ -9,29 +9,83 @@ import {
   BBVATokenAddress,
   BBVANFTRewards,
 } from "../../utils/ContractAddress";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const UploadNft = () => {
   const [expiration, setExpiration] = useState();
   const [cost, setCost] = useState();
-  const addReward = async (_cost, _metadataUrl) => {
+  const [toAddress, setToAddress] = useState();
+  const [rewardId, setRewardId] = useState();
+  const [tokensToApprove, setTokensToApprove] = useState();
+  const [allowedTokensToSpend, setAllowedTokensToSpend] = useState();
+  const [allRewards, setAllRewards] = useState();
+  const buyReward = async (_account, _rewardId) => {
     try {
-      const secondsInAday = 86400;
-      const expirationInSeconds = secondsInAday * expiration;
-      const amount = ethers.utils.parseEther(cost);
       const { BBVAAbi } = abi;
       const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const amount = ethers.utils.parseEther("1");
       const signer = provider.getSigner();
       const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
-      BBVAContract.addReward(
-        expirationInSeconds,
-        amount,
-        "ipfs://QmcNYbgm5tDRMjkWyzoXFBxdnLGArocy6DbLWHuqNAxXLz/1.json"
-      );
+      BBVAContract.buyReward(toAddress, rewardId, amount);
     } catch (error) {
       console.log(error);
     }
   };
+  const approveTokens = async () => {
+    try {
+      const { BBVATokenAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const amount = ethers.utils.parseEther(tokensToApprove);
+      const signer = provider.getSigner();
+      const BBVATokenContract = new ethers.Contract(
+        BBVATokenAddress,
+        BBVATokenAbi,
+        signer
+      );
+      await BBVATokenContract.approve(BBVAAddress, amount);
+      getAllowedTokensToSpend;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllowedTokensToSpend = async () => {
+    try {
+      const { BBVATokenAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const signerAddress = await signer.getAddress();
+      const BBVATokenContract = new ethers.Contract(
+        BBVATokenAddress,
+        BBVATokenAbi,
+        signer
+      );
+      const allowedTokens = await BBVATokenContract.allowance(
+        signerAddress,
+        BBVAAddress
+      );
+      const tokens = ethers.utils.formatEther(allowedTokens);
+      setAllowedTokensToSpend(Math.round(tokens));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllRewards = async () => {
+    try {
+      const { BBVAAbi } = abi;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
+      const rewards = await BBVAContract.returnAllRewards();
+      setAllRewards(rewards);
+      console.log(rewards);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllowedTokensToSpend();
+    getAllRewards();
+  }, []);
   const deleteReward = async (_rewardId) => {
     try {
       const { BBVAAbi } = abi;
@@ -62,50 +116,64 @@ const UploadNft = () => {
         </div>
       </div>
       <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
-        <p>Crear recompensa (Solo admins)</p>
+        <p>Recompensas</p>
+      </div>
+      <div className="flex justify-center items-center">
+        {allRewards?.map((item, _index) => {
+          return (
+            <div key={_index} className="">
+              <div className="bg-white w-[190px] h-[200px] border-2 border-blue-400 rounded-lg">
+                <Image
+                  src="https://gateway.pinata.cloud/ipfs/QmXmqHnMmhLUcPKgepVRmBtoj3d5AuuBWwR8x2nCot3uPQ"
+                  width={190}
+                  height={200}
+                />
+              </div>
+              <div>
+                <h1>{`Id: ${item[0]?.toString()}`}</h1>
+                <h1>
+                  {`Cost: ${Math.round(ethers.utils.formatEther(item[2]?.toString()))}`}
+                </h1>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
+        <p>Aprobar el costo de la recompensa antes de comprar</p>
       </div>
       <div className="flex flex-col items-center">
         <div>
           <div className="flex space-x-4 mb-4">
-            <div className="bg-white w-[190px] h-[200px] border-2 border-blue-400 rounded-lg">
-              <Image
-                src="https://gateway.pinata.cloud/ipfs/QmXmqHnMmhLUcPKgepVRmBtoj3d5AuuBWwR8x2nCot3uPQ"
-                width={500}
-                height={500}
-              />
-            </div>
-            <div className="space-y-4 w-52">
+            <div className="space-y-4 w-full">
               <div>
-                <p>Dias de caducidad</p>
-                <input
-                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2"
-                  onChange={(e) => setExpiration(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <p>Costo (Puntos:)</p>
-                <input
-                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2"
-                  type="number"
-                  onChange={(e) => setCost(e.target.value)}
-                ></input>
-              </div>
-              <div>
-                <p>URL IPFS:</p>
+                <p>Tokens aprobados para comprar recompensas</p>
                 <input
                   disabled
-                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2"
-                  value="ipfs://QmcNYbgm5tDRMjkWyzoXFBxdnLGArocy6DbLWHuqNAxXLz/1.json"
+                  onChange={(e) => setTokensToApprove(e.target.value)}
+                  type="number"
+                  value={allowedTokensToSpend}
+                  placeholder="Cantidad"
+                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2  w-full"
+                ></input>
+              </div>
+              <div>
+                <p>Aprobar tokens para gastar</p>
+                <input
+                  onChange={(e) => setTokensToApprove(e.target.value)}
+                  type="number"
+                  placeholder="Cantidad"
+                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2  w-full"
                 ></input>
               </div>
             </div>
           </div>
-          <div>
+          <div className="space-y-2 justify-center w-full">
             <Button
-              className="bg-blue-400 rounded-lg py-2 px-8 w-32 text-center"
-              onClick={addReward}
+              onClick={approveTokens}
+              className="bg-blue-400 rounded-lg p-2 px-8 text-center w-full"
             >
-              Subir
+              Aprobar costo
             </Button>
           </div>
         </div>
@@ -113,7 +181,40 @@ const UploadNft = () => {
       <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Comprar Recompensas</p>
       </div>
-      <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
+      <div className="flex flex-col items-center">
+        <div>
+          <div className="flex space-x-4 mb-4">
+            <div className="space-y-4 w-full">
+              <div>
+                <p>Cuenta destino:</p>
+                <input
+                  onChange={(e) => setToAddress(e.target.value)}
+                  placeholder="address"
+                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2 w-full"
+                ></input>
+              </div>
+              <div>
+                <p>ID de recompensa</p>
+                <input
+                  onChange={(e) => setRewardId(e.target.value)}
+                  type="number"
+                  placeholder="Id"
+                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2  w-full"
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-2 justify-center w-full">
+            <Button
+              onClick={buyReward}
+              className="bg-blue-400 rounded-lg p-2 px-8 text-center w-full"
+            >
+              Enviar
+            </Button>
+          </div>
+        </div>
+      </div>
+      {/* <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Recompensas</p>
       </div>
       <div>
@@ -156,7 +257,7 @@ const UploadNft = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

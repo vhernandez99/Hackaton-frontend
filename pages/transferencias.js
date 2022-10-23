@@ -1,8 +1,7 @@
-import { Header } from "../components/InterSystem";
 import Footer from "../components/InterSystem/Footer";
 import Intercambios from "../components/InterSystem/Intercambios";
 
-const intercambios = () => {
+const transferencias = () => {
     return ( 
         <div className='bg-black text-white'>
             <Intercambios/>
@@ -12,4 +11,4 @@ const intercambios = () => {
 
 }
  
-export default intercambios;
+export default transferencias;

@@ -53,7 +53,7 @@ const Nav = (props) => {
   };
   return (
     <div>
-      <div className="bg-[#222] z-50 flex items-center lgmax:justify-between px-[5%]">
+      <div className="bg-[#222] z-50 flex items-center lgmax:justify-between px-[5%] h-[100px]">
         <div className="w-[30%] lg:hidden">
           <FontAwesomeIcon
             onClick={() => {
@@ -66,7 +66,7 @@ const Nav = (props) => {
         <div className="w-[10%] lgmax:w-[30%]">
           <Image width={200} height={100} objectFit="contain" src={Logo} />
         </div>
-        <header className="w-[80%] pl-[10%] lgmax:hidden">
+        <header className="w-[100%]  lgmax:hidden">
           <nav>
             <ul className="flex items-center text-white space-x-10 text-xl">
               <Link href="/" passHref>
@@ -78,11 +78,11 @@ const Nav = (props) => {
               <Link href="/admin" passHref>
                 <a>Admin</a>
               </Link>
-              <Link href="/intercambios" passHref>
-                <a>Intercambios</a>
+              <Link href="/transferencias" passHref>
+                <a>Transferencias</a>
               </Link>
-              <Link href="/test" passHref>
-                <a>test</a>
+              <Link href="/misrecompensas" passHref>
+                <a>Mis Recompensas</a>
               </Link>
             </ul>
           </nav>
@@ -91,15 +91,21 @@ const Nav = (props) => {
           {currentAccount ? (
             <>
               {balance ? (
-                <Text onClick={getTokensBalance} className="bg-blue-600 cursor-pointer text-center text-white p-2 rounded-lg lgmax:text-xs items-center flex">
+                <Text
+                  onClick={getTokensBalance}
+                  className="bg-blue-600 cursor-pointer text-center text-white p-2 rounded-lg lgmax:text-xs items-center flex"
+                >
                   {`Puntos: ${balance}`}
                 </Text>
               ) : (
-                <Button onClick={getTokensBalance} className="bg-blue-600 text-center text-white p-2 rounded-lg lgmax:text-xs items-center flex">
+                <Button
+                  onClick={getTokensBalance}
+                  className="bg-blue-600 text-center text-white p-2 rounded-lg lgmax:text-xs items-center flex"
+                >
                   Obtener balances
                 </Button>
               )}
-              <Button className="bg-blue-600 text-center text-white p-4 rounded-lg lgmax:text-xs">
+              <Button onClick={connectToMetamask} className="bg-blue-600 text-center text-white p-4 rounded-lg lgmax:text-xs">
                 {currentAccount}
               </Button>
             </>
@@ -131,11 +137,14 @@ const Nav = (props) => {
             <Link href="/admin" passHref>
               <a>Admin</a>
             </Link>
-            <Link href="/intercambios" passHref>
-              <a>Intercambios</a>
+            <Link href="/transferencias" passHref>
+              <a>transferencias</a>
             </Link>
             <Link href="/test" passHref>
               <a>test</a>
+            </Link>
+            <Link href="/misrecompensas" passHref>
+              <a>Mis Recompensas</a>
             </Link>
           </ul>
         </nav>

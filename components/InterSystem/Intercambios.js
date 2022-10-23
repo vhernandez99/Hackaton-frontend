@@ -12,8 +12,6 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 const Intercambios = () => {
   const [toAddress, setToAddress] = useState();
-  const [toAddress2, setToAddress2] = useState();
-  const [amountOfPoints, setAmountOfPoints] = useState();
   const [tokenId, setTokenId] = useState();
   const transferReward = async (_from, _to, _rewardId) => {
     try {
@@ -31,18 +29,7 @@ const Intercambios = () => {
       console.log(error);
     }
   };
-  const addPointsToAcount = async (_address, _amount) => {
-    try {
-      const { BBVAAbi } = abi;
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const BBVAContract = new ethers.Contract(BBVAAddress, BBVAAbi, signer);
-      const amount = ethers.utils.parseEther(amountOfPoints);
-      await BBVAContract.addPointsToAcount(toAddress2, amount.toString());
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
   return (
     <div className="mx-[20%]">
       <div className="flex justify-center mt-16">
@@ -93,43 +80,8 @@ const Intercambios = () => {
           </div>
         </div>
       </div>
-      <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
-        <p>Enviar puntos (Solo admin)</p>
-      </div>
-      <div className="flex flex-col items-center">
-        <div>
-          <div className="flex space-x-4 mb-4">
-            <div className="space-y-4 w-full">
-              <div>
-                <p>Cuenta destino:</p>
-                <input
-                  onChange={(e) => setToAddress2(e.target.value)}
-                  placeholder="address"
-                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2 w-full"
-                ></input>
-              </div>
-              <div>
-                <p>Cantidad</p>
-                <input
-                  onChange={(e) => setAmountOfPoints(e.target.value)}
-                  type="number"
-                  placeholder="Id"
-                  className="bg-white text-black border-blue-400 border-2 rounded-lg p-2  w-full"
-                ></input>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center w-full">
-            <Button
-              className="bg-blue-400 rounded-lg p-2 px-8 text-center w-full"
-              onClick={addPointsToAcount}
-            >
-              Enviar
-            </Button>
-          </div>
-        </div>
-      </div>
-      <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
+     
+      {/* <div className="text-center text-blue-400 border-blue-400 border-2 my-8 py-4 rounded-lg">
         <p>Intercambios Realizados</p>
       </div>
       <div>
@@ -197,7 +149,7 @@ const Intercambios = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -60,13 +60,6 @@ const BBVATokenAbi = [
     type: "event",
   },
   {
-    inputs: [],
-    name: "BBVA",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "address", name: "controller", type: "address" }],
     name: "addController",
     outputs: [],
@@ -392,6 +385,32 @@ const BBVAAbi = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "address", name: "_address", type: "address" }],
+    name: "getAdmin",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "rewardId", type: "uint256" }],
+    name: "getRewardById",
+    outputs: [
+      {
+        components: [
+          { internalType: "uint256", name: "rewardId", type: "uint256" },
+          { internalType: "uint48", name: "expiration", type: "uint48" },
+          { internalType: "uint256", name: "cost", type: "uint256" },
+          { internalType: "string", name: "metadata", type: "string" },
+        ],
+        internalType: "struct BBVA.Reward",
+        name: "reward",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "owner",
     outputs: [{ internalType: "address", name: "", type: "address" }],
@@ -407,7 +426,26 @@ const BBVAAbi = [
   },
   {
     inputs: [],
-    name: "totalRewards",
+    name: "returnAllRewards",
+    outputs: [
+      {
+        components: [
+          { internalType: "uint256", name: "rewardId", type: "uint256" },
+          { internalType: "uint48", name: "expiration", type: "uint48" },
+          { internalType: "uint256", name: "cost", type: "uint256" },
+          { internalType: "string", name: "metadata", type: "string" },
+        ],
+        internalType: "struct BBVA.Reward[]",
+        name: "rewards",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalRewardsCount",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
